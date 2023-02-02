@@ -1,5 +1,7 @@
 import { Heading, HStack, Text, VStack } from "native-base";
 
+import { UserPhoto } from "./UserPhoto";
+
 export function HomeHeader() {
 	return (
 		<HStack
@@ -9,12 +11,18 @@ export function HomeHeader() {
 			px={8}
 			alignItems="center"
 		>
+			<UserPhoto
+				source={{ uri: "https://github.com/bakajeff.png" }}
+				size={16}
+				alt=""
+				mr={4}
+			/>
 			<VStack>
 				<Text color="gray.100" fontSize="md">
 					Olá,
 				</Text>
 				<Heading color="gray.100" fontSize="md">
-					Rodrigo
+					Jeffte
 				</Heading>
 			</VStack>
 		</HStack>
