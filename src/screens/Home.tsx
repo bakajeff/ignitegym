@@ -18,7 +18,7 @@ export function Home() {
 		"Remada unilateral",
 		"Levantamento terra",
 	]);
-	const [groupSelected, setGroupSelected] = useState("costa");
+	const [groupSelected, setGroupSelected] = useState("costas");
 
 	return (
 		<VStack flex={1}>
@@ -30,7 +30,10 @@ export function Home() {
 				renderItem={({ item }) => (
 					<Group
 						name={item}
-						isActive={groupSelected === item}
+						isActive={
+							String(groupSelected).toLocaleUpperCase() ===
+							String(item).toLocaleUpperCase()
+						}
 						onPress={() => setGroupSelected(item)}
 					/>
 				)}
