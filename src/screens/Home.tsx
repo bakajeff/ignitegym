@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Group } from "@components/Group";
 import { HomeHeader } from "@components/HomeHeader";
 import { VStack, FlatList, HStack, Heading, Text } from "native-base";
+import { ExerciseCard } from "@components/ExerciseCard";
 
 export function Home() {
 	const [groups, setGroups] = useState([
@@ -43,6 +44,7 @@ export function Home() {
 						4
 					</Text>
 				</HStack>
+				<ExerciseCard />
 			</VStack>
 		</VStack>
 	);
