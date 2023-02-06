@@ -20,7 +20,11 @@ export function HistoryCard() {
 					Puxada frontal
 				</Text>
 			</VStack>
-			<Text>08:56</Text>
+
+			<Text color="gray.300" fontSize="md">
+				{" "}
+				08:56
+			</Text>
 		</HStack>
 	);
 }
