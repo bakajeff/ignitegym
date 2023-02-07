@@ -1,3 +1,4 @@
+import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { UserPhoto } from "@components/UserPhoto";
@@ -74,6 +75,8 @@ export function Profile() {
 						placeholder="Confirmar nova senha"
 						secureTextEntry
 					/>
+
+					<Button title="Atualizar" mt={4} />
 				</VStack>
 			</ScrollView>
 		</VStack>
