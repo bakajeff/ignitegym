@@ -67,6 +67,7 @@ export function Exercise() {
 								3 séries
 							</Text>
 						</HStack>
+
 						<HStack>
 							<RepetitionsSvg />
 							<Text color="gray.200" ml={2}>
@@ -74,6 +75,7 @@ export function Exercise() {
 							</Text>
 						</HStack>
 					</HStack>
+
 					<Button title="Marcar como finalizado" />
 				</Box>
 			</VStack>
