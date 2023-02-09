@@ -1,6 +1,5 @@
-import { Button } from "@components/Button";
-import { Input } from "@components/Input";
-import { ScreenHeader } from "@components/ScreenHeader";
+import { useState } from "react";
+import { TouchableOpacity } from "react-native";
 import { UserPhoto } from "@components/UserPhoto";
 import {
 	Center,
@@ -10,13 +9,20 @@ import {
 	Text,
 	Heading,
 } from "native-base";
-import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+
+import { Button } from "@components/Button";
+import { Input } from "@components/Input";
+import { ScreenHeader } from "@components/ScreenHeader";
 
 const PHOTO_SIZE = 33;
 
 export function Profile() {
 	const [photoIsLoading, setPhotoIsLoading] = useState(false);
+
+	async function handleUserPhotoSelect() {
+		await ImagePicker.launchImageLibraryAsync();
+	}
 
 	return (
 		<VStack flex={1}>
@@ -39,7 +45,7 @@ export function Profile() {
 							alt=""
 						/>
 					)}
-					<TouchableOpacity>
+					<TouchableOpacity onPress={handleUserPhotoSelect}>
 						<Text
 							color="green.500"
 							fontWeight="bold"
