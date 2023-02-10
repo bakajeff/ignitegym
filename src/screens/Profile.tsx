@@ -36,7 +36,9 @@ export function Profile() {
 				return;
 			}
 
-			setUserPhoto(photoSelected.assets[0].uri);
+			if (photoSelected.assets[0].uri) {
+				setUserPhoto(photoSelected.assets[0].uri);
+			}
 		} catch (error) {
 			console.log(error);
 		} finally {
