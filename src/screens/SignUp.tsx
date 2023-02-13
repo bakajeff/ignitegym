@@ -1,4 +1,5 @@
 import { VStack, Image, Text, Center, Heading, ScrollView } from "native-base";
+import { useForm, Controller } from "react-hook-form";
 
 import LogoSvg from "@assets/logo.svg";
 import BackgroundImg from "@assets/background.png";
@@ -8,6 +9,8 @@ import { useNavigation } from "@react-navigation/native";
 
 export function SignUp() {
 	const navigation = useNavigation();
+
+	const { control } = useForm();
 
 	function handleGoBack() {
 		navigation.goBack();
@@ -37,17 +40,53 @@ export function SignUp() {
 						Crie sua conta
 					</Heading>
 
-					<Input placeholder="Nome" />
-
-					<Input
-						placeholder="Email"
-						keyboardType="email-address"
-						autoCapitalize="none"
+					<Controller
+						control={control}
+						name="name"
+						render={({ field: { onChange, value } }) => (
+							<Input placeholder="Nome" onChangeText={onChange} value={value} />
+						)}
 					/>
 
-					<Input placeholder="Senha" secureTextEntry />
+					<Controller
+						control={control}
+						name="email"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Email"
+								keyboardType="email-address"
+								autoCapitalize="none"
+								onChangeText={onChange}
+								value={value}
+							/>
+						)}
+					/>
 
-					<Input placeholder="Confirmar a senha" secureTextEntry />
+					<Controller
+						control={control}
+						name="password"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Senha"
+								secureTextEntry
+								onChangeText={onChange}
+								value={value}
+							/>
+						)}
+					/>
+
+					<Controller
+						control={control}
+						name="passwordConfirm"
+						render={({ field: { onChange, value } }) => (
+							<Input
+								placeholder="Confirmar a senha"
+								secureTextEntry
+								onChangeText={onChange}
+								value={value}
+							/>
+						)}
+					/>
 
 					<Button title="Criar e acessar" />
 				</Center>
