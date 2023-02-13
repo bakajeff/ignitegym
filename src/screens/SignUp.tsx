@@ -36,13 +36,19 @@ export function SignUp() {
 					<Heading color="gray.100" fontSize="xl" mb={6} fontFamily="heading">
 						Crie sua conta
 					</Heading>
+
 					<Input placeholder="Nome" />
+
 					<Input
 						placeholder="Email"
 						keyboardType="email-address"
 						autoCapitalize="none"
 					/>
+
 					<Input placeholder="Senha" secureTextEntry />
+
+					<Input placeholder="Confirmar a senha" secureTextEntry />
+
 					<Button title="Criar e acessar" />
 				</Center>
 				<Button
