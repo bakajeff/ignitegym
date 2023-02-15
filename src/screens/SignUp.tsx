@@ -52,7 +52,9 @@ export function SignUp() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ name, email, password }),
-		});
+		})
+			.then((response) => response.json())
+			.then((data) => console.log(data));
 	}
 
 	return (
