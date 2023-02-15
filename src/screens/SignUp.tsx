@@ -44,8 +44,15 @@ export function SignUp() {
 		navigation.goBack();
 	}
 
-	function handleSignUp(data: FormDataProps) {
-		console.log(data);
+	function handleSignUp({ name, email, password }: FormDataProps) {
+		fetch("http://172.25.181.122:3333/users", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ name, email, password }),
+		});
 	}
 
 	return (
@@ -61,12 +68,14 @@ export function SignUp() {
 					resizeMode="contain"
 					position="absolute"
 				/>
+
 				<Center my={24}>
 					<LogoSvg />
 					<Text color="gray.100" fontSize="sm">
 						Treine sua mente e seu corpo
 					</Text>
 				</Center>
+
 				<Center>
 					<Heading color="gray.100" fontSize="xl" mb={6} fontFamily="heading">
 						Crie sua conta
@@ -84,6 +93,7 @@ export function SignUp() {
 							/>
 						)}
 					/>
+
 					<Controller
 						control={control}
 						name="email"
@@ -134,6 +144,7 @@ export function SignUp() {
 						onPress={handleSubmit(handleSignUp)}
 					/>
 				</Center>
+
 				<Button
 					mt={12}
 					title="Voltar para o login"
