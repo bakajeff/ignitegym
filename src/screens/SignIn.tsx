@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
 	VStack,
@@ -38,6 +39,8 @@ const signInSchema = yup.object({
 });
 
 export function SignIn() {
+	const [isLoading, setIsLoading] = useState(false);
+
 	const { signIn } = useAuth();
 	const toast = useToast();
 
@@ -57,6 +60,7 @@ export function SignIn() {
 
 	async function handleSignIn({ email, password }: FormDataProps) {
 		try {
+			setIsLoading(true);
 			await signIn(email, password);
 		} catch (error) {
 			const isAppError = error instanceof AppError;
@@ -64,6 +68,8 @@ export function SignIn() {
 			const title = isAppError
 				? error.message
 				: "Não foi possível entrar. Tente novamente mais tarde";
+
+			setIsLoading(false);
 
 			toast.show({
 				title,
@@ -128,7 +134,11 @@ export function SignIn() {
 						)}
 					/>
 
-					<Button title="Acessar" onPress={handleSubmit(handleSignIn)} />
+					<Button
+						title="Acessar"
+						onPress={handleSubmit(handleSignIn)}
+						isLoading={isLoading}
+					/>
 				</Center>
 
 				<Center mt={24}>
