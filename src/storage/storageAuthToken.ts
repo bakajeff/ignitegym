@@ -5,3 +5,10 @@ import { AUTH_TOKEN_STORAGE } from "@storage/storageConfig";
 export async function storageAuthTokenSave(token: string) {
 	await AsyncStorage.setItem(AUTH_TOKEN_STORAGE, token);
 }
+
+export async function storageAuthTokenGet() {
+	const storage = await AsyncStorage.getItem(AUTH_TOKEN_STORAGE);
+	const token: string = storage ? JSON.parse(storage) : {};
+
+	return token;
+}
