@@ -63,7 +63,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
 				await storageUserAndTokenSave(data.user, data.token);
 
-				userAndTokenUpdate(data.user, data.token);
+				await userAndTokenUpdate(data.user, data.token);
 			}
 		} catch (error) {
 			throw error;
@@ -94,7 +94,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 			const token = await storageAuthTokenGet();
 
 			if (token && userLogged) {
-				userAndTokenUpdate(userLogged, token);
+				await userAndTokenUpdate(userLogged, token);
 			}
 		} catch (error) {
 			throw error;
