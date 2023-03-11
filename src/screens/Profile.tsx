@@ -26,10 +26,6 @@ import { ScreenHeader } from "@components/ScreenHeader";
 
 const PHOTO_SIZE = 33;
 
-const profileSchema = yup.object({
-	name: yup.string().required("Informe o nome."),
-});
-
 type FormDataProps = {
 	name: string;
 	email: string;
@@ -37,6 +33,20 @@ type FormDataProps = {
 	old_password: string;
 	confirm_password: string;
 };
+
+const profileSchema = yup.object({
+	name: yup.string().required("Informe o nome."),
+	password: yup
+		.string()
+		.min(6, "A senha deve ter pelo menos 6 dígitos")
+		.nullable()
+		.transform((value) => (value ? value : null)),
+	confirm_password: yup
+		.string()
+		.nullable()
+		.transform((value) => (value ? value : null))
+		.oneOf([yup.ref("password")], "A confirmação de senha não confere"),
+});
 
 export function Profile() {
 	const [photoIsLoading, setPhotoIsLoading] = useState(false);
@@ -194,7 +204,7 @@ export function Profile() {
 
 					<Controller
 						control={control}
-						name="password"
+						name="confirm_password"
 						render={({ field: { onChange } }) => (
 							<Input
 								bg="gray.600"
