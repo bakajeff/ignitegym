@@ -10,8 +10,11 @@ import {
 	Heading,
 	useToast,
 } from "native-base";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
+import * as yup from "yup";
 
 import { Controller, useForm } from "react-hook-form";
 
@@ -22,6 +25,10 @@ import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 
 const PHOTO_SIZE = 33;
+
+const profileSchema = yup.object({
+	name: yup.string().required("Informe o nome."),
+});
 
 type FormDataProps = {
 	name: string;
@@ -37,11 +44,16 @@ export function Profile() {
 
 	const toast = useToast();
 	const { user } = useAuth();
-	const { control, handleSubmit } = useForm<FormDataProps>({
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<FormDataProps>({
 		defaultValues: {
 			name: user.name,
 			email: user.email,
 		},
+		resolver: yupResolver(profileSchema),
 	});
 
 	async function handleUserPhotoSelect() {
@@ -123,6 +135,7 @@ export function Profile() {
 								value={value}
 								placeholder="Nome"
 								bg="gray.600"
+								errorMessage={errors.name?.message}
 							/>
 						)}
 					/>
@@ -174,6 +187,7 @@ export function Profile() {
 								onChangeText={onChange}
 								placeholder="Nova senha"
 								secureTextEntry
+								errorMessage={errors.password?.message}
 							/>
 						)}
 					/>
@@ -185,6 +199,7 @@ export function Profile() {
 							<Input
 								bg="gray.600"
 								onChangeText={onChange}
+								errorMessage={errors.confirm_password?.message}
 								placeholder="Confirmar nova senha"
 								secureTextEntry
 							/>
