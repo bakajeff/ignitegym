@@ -48,7 +48,10 @@ const profileSchema = yup.object({
 		.oneOf([yup.ref("password")], "A confirmação de senha não confere.")
 		.when("password", {
 			is: (Field: any) => Field,
-			then: (schema) => schema.required("Informe a confirmação de senha."),
+			then: (schema) =>
+				schema
+					.required("Informe a confirmação de senha.")
+					.transform((value) => (value ? value : null)),
 		}),
 });
 
