@@ -18,11 +18,14 @@ import * as yup from "yup";
 
 import { Controller, useForm } from "react-hook-form";
 
+import { api } from "@services/api";
+
 import { useAuth } from "@hooks/useAuth";
 
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
+import { AppError } from "@utils/AppError";
 
 const PHOTO_SIZE = 33;
 
@@ -56,6 +59,7 @@ const profileSchema = yup.object({
 });
 
 export function Profile() {
+	const [isUpdating, setIsUpdating] = useState(false);
 	const [photoIsLoading, setPhotoIsLoading] = useState(false);
 	const [userPhoto, setUserPhoto] = useState("https://github.com/bakajeff.png");
 
@@ -111,7 +115,29 @@ export function Profile() {
 	}
 
 	async function handleProfileUpdate(data: FormDataProps) {
-		console.log(data);
+		try {
+			setIsUpdating(true);
+
+			await api.put("users", data);
+
+			toast.show({
+				title: "Perfil atualizado com sucesso.",
+				placement: "top",
+				bgColor: "green.500",
+			});
+		} catch (error) {
+			const isAppError = error instanceof AppError;
+			const title = isAppError
+				? error.message
+				: "Não foi possível atualizar os dados. Tente novamente mais tarde";
+			toast.show({
+				title,
+				placement: "top",
+				bgColor: "red.500",
+			});
+		} finally {
+			setIsUpdating(false);
+		}
 	}
 
 	return (
@@ -225,6 +251,7 @@ export function Profile() {
 
 					<Button
 						title="Atualizar"
+						isLoading={isUpdating}
 						onPress={handleSubmit(handleProfileUpdate)}
 						mt={4}
 					/>
