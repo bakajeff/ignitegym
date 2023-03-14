@@ -27,6 +27,8 @@ import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { AppError } from "@utils/AppError";
 
+import defaultUserPhotoImg from "@assets/userPhotoDefault.png";
+
 const PHOTO_SIZE = 33;
 
 type FormDataProps = {
@@ -61,7 +63,6 @@ const profileSchema = yup.object({
 export function Profile() {
 	const [isUpdating, setIsUpdating] = useState(false);
 	const [photoIsLoading, setPhotoIsLoading] = useState(false);
-	const [userPhoto, setUserPhoto] = useState("https://github.com/bakajeff.png");
 
 	const toast = useToast();
 	const { user, updateUserProfile } = useAuth();
@@ -190,7 +191,15 @@ export function Profile() {
 							endColor="gray.400"
 						/>
 					) : (
-						<UserPhoto source={{ uri: userPhoto }} size={PHOTO_SIZE} alt="" />
+						<UserPhoto
+							source={
+								user.avatar
+									? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` }
+									: defaultUserPhotoImg
+							}
+							size={PHOTO_SIZE}
+							alt=""
+						/>
 					)}
 					<TouchableOpacity onPress={handleUserPhotoSelect}>
 						<Text
